@@ -1,0 +1,35 @@
+CREATE TABLE hospitals (
+    hospital_id INT PRIMARY KEY AUTO_INCREMENT,
+    MRN VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE patients (
+    patient_id INT PRIMARY KEY AUTO_INCREMENT,
+    MRN VARCHAR(50) UNIQUE NOT NULL,
+    hospital_id INT,
+    FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id)
+);
+
+CREATE TABLE physicians (
+    physician_id INT PRIMARY KEY AUTO_INCREMENT,
+    hospital_id INT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_registered_license DATE,
+    badge_id VARCHAR(5),
+    phone_number VARCHAR(15),
+    work_email VARCHAR(100),
+    FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id)
+);
+
+CREATE TABLE demographics (
+    demographic_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT UNIQUE,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE,
+    address TEXT,
+    phone_number VARCHAR(15),
+    email VARCHAR(100),
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
+);
